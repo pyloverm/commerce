@@ -593,6 +593,11 @@ margin-top: 160px;
    color: green;
    font-size: 40px;
 }
+
+.canceled .icon {
+  color: #f02d34;
+  font-size: 40px;
+}
 .success h2{
   text-transform: capitalize;
   margin-top: 15px 0px;

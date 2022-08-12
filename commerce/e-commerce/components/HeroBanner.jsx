@@ -7,7 +7,10 @@ import { useRouter } from 'next/router'
 
 const HeroBanner = ({ heroBanner }) => {
   let { t } = useTranslation();
-  const lang = useRouter().locale;
+  var lang = useRouter().locale;
+  if (lang === 'en-US'){
+    lang = 'en';
+  }
   
   return (
     <div className="hero-banner-container">

@@ -4,7 +4,10 @@ import { useRouter } from 'next/router'
 import { urlFor } from '../lib/client';
 
 const FooterBanner = ({ footerBanner: { discount, largeText1, largeText2, saleTime, smallText, midText, desc, product, buttonText, image } }) => {
-  const lang = useRouter().locale;
+  var lang = useRouter().locale;
+  if (lang === 'en-US'){
+    lang = 'en';
+  }
   return (
     <div className="footer-banner-container">
       <div className="banner-desc">
