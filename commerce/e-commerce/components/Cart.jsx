@@ -3,12 +3,18 @@ import Link from 'next/link';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
 import toast from 'react-hot-toast';
-
+import { useRouter } from 'next/router';
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 import getStripe from '../lib/getStripe';
 
+
 const Cart = () => {
+  var lang = useRouter().locale;
+  if (lang === 'en-US'){
+    lang = 'en'
+    console.log(lang)
+  }
   const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 
@@ -19,6 +25,7 @@ const Cart = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        "locale": lang
       },
       body: JSON.stringify(cartItems),
     });
@@ -29,7 +36,7 @@ const Cart = () => {
 
     toast.loading('Redirecting...');
 
-    stripe.redirectToCheckout({ sessionId: data.id });
+    stripe.redirectToCheckout({ sessionId: data.id});
   }
 
   return (

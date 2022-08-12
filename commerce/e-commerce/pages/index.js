@@ -3,12 +3,10 @@ import Head from 'next/head';
 import useTranslation from "next-translate/useTranslation";
 import { client } from '../lib/client';
 import { Product, FooterBanner, HeroBanner } from '../components';
-
+import {useRouter} from 'next/router';
 
 export default function Home ({ products, bannerData}) {
   let { t } = useTranslation();
-  
-
   return(
     
   <div>
@@ -32,7 +30,6 @@ export const getServerSideProps = async () => {
   const products = await client.fetch(query);
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
-
   return {
     props: { products, bannerData}
   }
