@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import useTranslation from "next-translate/useTranslation";
 import { client } from '../lib/client';
 import { Product, FooterBanner, HeroBanner } from '../components';
@@ -9,6 +10,7 @@ export default function Home ({ products, bannerData}) {
   
 
   return(
+    
   <div>
     <HeroBanner heroBanner={bannerData.length && bannerData[0]}  />
     <div className="products-heading">
