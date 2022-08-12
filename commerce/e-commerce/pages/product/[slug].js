@@ -74,11 +74,6 @@ const ProductDetails = ({ product, products }) => {
                 <Product key={item._id} product={item} />
               ))}
             </div>
-            <div className="maylike-products-container marquee2 track">
-              {products.map((item) => (
-                <Product key={item._id} product={item} />
-              ))}
-            </div>
           </div>
       </div>
     </div>
