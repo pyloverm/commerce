@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       const lang = req.headers.locale;
       var lang_url = '/'.concat(lang);
       if (lang === 'en'){
-        lang_url = ''
+        lang_url = '/en-US'
       }
       const params = {
         submit_type: 'pay',
