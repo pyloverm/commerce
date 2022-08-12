@@ -1,3 +1,34 @@
+const supportedLanguages = [
+  { id: 'en', title: 'English', isDefault: true },
+  { id: 'pt', title: 'Portugese' },
+  { id: 'fr', title: 'French' }
+]
+const baseLanguage = supportedLanguages.find(l => l.isDefault)
+
+const localeString = {
+  title: 'Localized string',
+  name: 'localeString',
+  type: 'object',
+  // Fieldsets can be used to group object fields.
+  // Here we omit a fieldset for the "default language",
+  // making it stand out as the main field.
+  fieldsets: [
+    {
+      title: 'Translations',
+      name: 'translations',
+      options: { collapsible: true }
+    }
+  ],
+  // Dynamically define one field per language
+  fields: supportedLanguages.map(lang => ({
+    title: lang.title,
+    name: lang.id,
+    type: 'string',
+    fieldset: lang.isDefault ? null : 'translations'
+  }))
+}
+
+
 export default {
     name: 'banner',
     title: 'Banner',
@@ -14,37 +45,37 @@ export default {
         {
             name: 'buttonText',
             title: 'ButtonText',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'product',
             title: 'Product',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'desc',
             title: 'Desc',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'smallText',
             title: 'SmallText',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'midText',
             title: 'MidText',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'largeText1',
             title: 'LargeText1',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'largeText2',
             title: 'LargeText2',
-            type: 'string',
+            type: 'localeString',
         },
         {
             name: 'discount',
@@ -54,7 +85,12 @@ export default {
         {
             name: 'saleTime',
             title: 'SaleTime',
-            type: 'string',
+            type: 'localeString',
         },
     ],
+    preview: {
+        select: {
+        title: `title.${baseLanguage.id}`
+        }
+    }
   };

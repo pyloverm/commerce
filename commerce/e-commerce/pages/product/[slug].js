@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-
+import Marquee from 'react-fast-marquee'
 import { client, urlFor } from '../../lib/client';
 import { Product } from '../../components';
 import { useStateContext } from '../../context/StateContext';
@@ -66,11 +66,15 @@ const ProductDetails = ({ product, products }) => {
           </div>
         </div>
       </div>
-
       <div className="maylike-products-wrapper">
           <h2>You may also like</h2>
           <div className="marquee">
             <div className="maylike-products-container track">
+              {products.map((item) => (
+                <Product key={item._id} product={item} />
+              ))}
+            </div>
+            <div className="maylike-products-container marquee2 track">
               {products.map((item) => (
                 <Product key={item._id} product={item} />
               ))}

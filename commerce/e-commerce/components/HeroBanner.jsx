@@ -1,24 +1,29 @@
 import React from 'react';
 import Link from 'next/link';
-
+import useTranslation from "next-translate/useTranslation";
 import { urlFor } from '../lib/client';
+import { useRouter } from 'next/router'
+
 
 const HeroBanner = ({ heroBanner }) => {
+  let { t } = useTranslation();
+  const lang = useRouter().locale;
+  
   return (
     <div className="hero-banner-container">
       <div>
-        <p className="beats-solo">{heroBanner.smallText}</p>
-        <h3>{heroBanner.midText}</h3>
-        <h1>{heroBanner.largeText1}</h1>
+        <p className="beats-solo">{heroBanner.largeText1[lang]}</p>
+        <h3>{heroBanner.midText[lang]}</h3>
+        <h1>{heroBanner.smallText[lang]}</h1>
         <img src={urlFor(heroBanner.image)} alt="headphones" className="hero-banner-image" />
 
         <div>
-          <Link href={`/product/${heroBanner.product}`}>
-            <button type="button">{heroBanner.buttonText}</button>
+          <Link href={`/product/${heroBanner.product[lang]}`}>
+            <button type="button">{heroBanner.buttonText[lang]}</button>
           </Link>
           <div className="desc">
-            <h5>Description</h5>
-            <p>{heroBanner.desc}</p>
+            <h5>{t("common:Description")}</h5>
+            <p>{heroBanner.desc[lang]}</p>
           </div>
         </div>
       </div>
