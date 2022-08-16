@@ -1,14 +1,44 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import Marquee from 'react-fast-marquee'
+
 import { client, urlFor } from '../../lib/client';
 import { Product } from '../../components';
 import { useStateContext } from '../../context/StateContext';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router'
+import useTranslation from "next-translate/useTranslation";
 
 const ProductDetails = ({ product, products }) => {
+  let { t } = useTranslation();
+  var lang = useRouter().locale;
+  if (lang === 'en-US'){
+    lang = 'en';
+  }
+
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const { decQty, incQty, qty, onAdd, setShowCart,showCart,cartItems ,setCartItems,totalQuantities,setTotalQuantities} = useStateContext();
+
+  /* const checkProductInCart = cartItems.find((item) => item._id === product._id);
+    
+    setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+    
+    if(checkProductInCart) {
+      const updatedCartItems = cartItems.map((cartProduct) => {
+        if(cartProduct._id === product._id) return {
+          ...cartProduct,
+          quantity: cartProduct.quantity + quantity
+        }
+      })
+
+      setCartItems(updatedCartItems);
+    } else {
+      product.quantity = quantity;
+      
+      setCartItems([...cartItems, { ...product }]);
+    }
+  */
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -36,7 +66,7 @@ const ProductDetails = ({ product, products }) => {
         </div>
 
         <div className="product-detail-desc">
-          <h1>{name}</h1>
+          <h1>{name[lang]}</h1>
           <div className="reviews">
             <div>
               <AiFillStar />
@@ -50,7 +80,7 @@ const ProductDetails = ({ product, products }) => {
             </p>
           </div>
           <h4>Details: </h4>
-          <p>{details}</p>
+          <p>{details[lang]}</p>
           <p className="price">${price}</p>
           <div className="quantity">
             <h3>Quantity:</h3>
@@ -61,13 +91,13 @@ const ProductDetails = ({ product, products }) => {
             </p>
           </div>
           <div className="buttons">
-            <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Add to Cart</button>
-            <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
+            <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>{t("common:Add to Cart")}</button>
+            <button type="button" className="buy-now" onClick={handleBuyNow}>{t("common:Buy Now")}</button>
           </div>
         </div>
       </div>
       <div className="maylike-products-wrapper">
-          <h2>You may also like</h2>
+          <h2>{t("common:You may also like")}</h2>
           <div className="marquee">
             <div className="maylike-products-container track">
               {products.map((item) => (

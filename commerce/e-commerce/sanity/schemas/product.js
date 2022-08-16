@@ -1,8 +1,23 @@
+
+
+
+const supportedLanguages = [
+  { id: 'en', title: 'English', isDefault: true },
+  { id: 'pt', title: 'Portugese' },
+  { id: 'fr', title: 'French' }
+]
+const baseLanguage = supportedLanguages.find(l => l.isDefault)
+
 export default {
     name: 'product',
     title: 'Product',
     type: 'document',
     fields: [
+      {
+        name: 'title',
+        title: 'title',
+        type: 'string',
+      },
       {
         name: 'image',
         title: 'Image',
@@ -13,18 +28,18 @@ export default {
         }
       },
       { 
-        name: 'name',
-        title: 'Name',
-        type: 'string',
-      },
-      { 
         name: 'slug',
         title: 'Slug',
         type: 'slug',
         options: {
-          source: 'name',
+          source: (doc, options) => options.parent.name['en'],
           maxLength: 90,
         }
+      },
+      { 
+        name: 'name',
+        title: 'Name',
+        type: 'localeString',
       },
       { 
         name: 'price',
@@ -34,7 +49,7 @@ export default {
       { 
         name: 'details',
         title: 'Details',
-        type: 'string',
+        type: 'localeString',
       }
     ]
   }

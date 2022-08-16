@@ -3,15 +3,17 @@ import Link from 'next/link';
 import { BsBagCheckFill, BsBagDashFill } from 'react-icons/bs';
 import { useStateContext } from '../context/StateContext';
 
-const Success = () => {
-  const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
+const Canceled = () => {
+  
 
+  const { setCartItems,setTotalQuantities} = useStateContext();
   useEffect(() => {
-    localStorage.clear();
-    setCartItems([]);
-    setTotalPrice(0);
-    setTotalQuantities(0);
+    const cartData = JSON.parse(localStorage.getItem('cart'));
+    const cartQuantitiesData = JSON.parse(localStorage.getItem('cart_quantities'));
+    if(cartData != null ){setCartItems(cartData)}
+    if(cartQuantitiesData != null ){setTotalQuantities(cartQuantitiesData)}
   }, []);
+
 
   return (
     <div className="success-wrapper">
@@ -36,4 +38,4 @@ const Success = () => {
   )
 }
 
-export default Success
+export default Canceled

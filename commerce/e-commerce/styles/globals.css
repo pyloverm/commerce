@@ -39,7 +39,7 @@ width: 100%;
   color: #f02d34;
 }
 .marquee {
-  padding-left: 100%;
+  padding-left:0%;
   position: relative;
   height: 400px;
   width: 100%;
@@ -58,8 +58,8 @@ width: 100%;
 }
 
 @keyframes marquee {
-  100% {
-    transform: translate(-100%,0);
+  50% {
+    transform: translate(-40%,0);
   }
 }
 

@@ -2,8 +2,17 @@ import React from 'react';
 import Link from 'next/link';
 
 import { urlFor } from '../lib/client';
+import { useRouter } from 'next/router'
+
+
 
 const Product = ({ product: { image, name, slug, price } }) => {
+
+  var lang = useRouter().locale;
+  if (lang === 'en-US'){
+    lang = 'en';
+  }
+
   return (
     <div>
       <Link href={`/product/${slug.current}`}>
@@ -14,7 +23,7 @@ const Product = ({ product: { image, name, slug, price } }) => {
             height={250}
             className="product-image"
           />
-          <p className="product-name">{name}</p>
+          <p className="product-name">{name[lang]}</p>
           <p className="product-price">${price}</p>
         </div>
       </Link>

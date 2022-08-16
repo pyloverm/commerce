@@ -1,9 +1,21 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/router';
+import useTranslation from "next-translate/useTranslation";
+
+
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
+
+  let { t } = useTranslation();
+  var lang = useRouter().locale;
+  if (lang === 'en-US'){
+    lang = 'en'
+    console.log(lang)
+  }
+
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -14,13 +26,17 @@ export const StateContext = ({ children }) => {
   let index;
 
   const onAdd = (product, quantity) => {
+    console.log('adding');
+    
     const checkProductInCart = cartItems.find((item) => item._id === product._id);
     
     setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
     
     if(checkProductInCart) {
+      console.log("product already in cart")
       const updatedCartItems = cartItems.map((cartProduct) => {
+        
         if(cartProduct._id === product._id) return {
           ...cartProduct,
           quantity: cartProduct.quantity + quantity
@@ -34,7 +50,7 @@ export const StateContext = ({ children }) => {
       setCartItems([...cartItems, { ...product }]);
     }
 
-    toast.success(`${qty} ${product.name} added to the cart.`);
+    toast.success(`${qty} ${product.name[lang]} ${t("common:added to the cart")}.`);
   } 
 
   const onRemove = (product) => {
